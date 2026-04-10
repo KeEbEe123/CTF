@@ -72,17 +72,29 @@ if (!process.env.SESSION_SECRET) {
 }
 if (isProduction && !cookieSecure) {
   console.warn("COOKIE_SECURE is not enabled. Use HTTPS and set COOKIE_SECURE=true in production.");
+  console.warn("⚠️  WARNING: Login and registration will NOT work properly without COOKIE_SECURE=true on HTTPS!");
 }
+
+console.log(`[config] NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`[config] COOKIE_SECURE: ${cookieSecure}`);
+console.log(`[config] Trust proxy: enabled (required for Render/Railway/Heroku)`);
 
 initializeUserStore();
 initializeProgressStore();
 initializeTrackStore();
 initializeChallengeInstanceStore();
 
+// Trust proxy - required for Render, Railway, Heroku, etc.
+// This allows Express to correctly detect HTTPS connections behind a reverse proxy
+app.set("trust proxy", 1);
+
 app.disable("x-powered-by");
+const corsOrigin = process.env.CORS_ORIGIN || true;
+console.log(`[config] CORS origin: ${corsOrigin === true ? 'all origins (reflect)' : corsOrigin}`);
+
 app.use(
   cors({
-    origin: true,
+    origin: corsOrigin,
     credentials: true
   })
 );
@@ -168,6 +180,21 @@ app.use("/", express.static(frontendRoot));
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
+});
+
+app.get("/api/debug/session", (req, res) => {
+  res.json({
+    hasSession: !!req.session,
+    sessionID: req.session?.id || null,
+    authUser: req.session?.authUser || null,
+    secure: req.secure,
+    protocol: req.protocol,
+    headers: {
+      'x-forwarded-proto': req.get('x-forwarded-proto'),
+      'x-forwarded-host': req.get('x-forwarded-host')
+    },
+    cookieSecure: cookieSecure
+  });
 });
 
 app.use("/api", (req, res) => {
