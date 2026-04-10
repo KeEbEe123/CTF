@@ -1,0 +1,671 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   dashboard.css — ZeroTrace CTF Dashboard
+   Dark Cyberpunk design system (extends landing.css tokens)
+──────────────────────────────────────────────────────────────────────────────── */
+
+/* ── PAGE BASE ───────────────────────────────────────────────── */
+body.db-page {
+  background: #060d1a;
+  min-height: 100vh;
+}
+
+/* ── NAV ADJUSTMENTS ────────────────────────────────────────── */
+.db-nav {
+  background: rgba(6, 13, 26, 0.95) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.db-nav-user-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-left: auto;
+}
+
+.db-user-email {
+  font-size: 0.82rem;
+  color: var(--lp-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-right: 0.375rem;
+}
+
+.db-nav-btn {
+  background: transparent !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  color: var(--lp-text) !important;
+  font-size: 0.8rem !important;
+  padding: 0.4rem 1rem !important;
+  border-radius: 6px;
+  transition: var(--lp-transition);
+}
+
+.db-nav-btn:hover {
+  border-color: var(--lp-primary) !important;
+  color: var(--lp-primary) !important;
+  background: var(--lp-primary-glow) !important;
+  text-decoration: none;
+}
+
+/* ── DASHBOARD HERO ──────────────────────────────────────────── */
+.db-hero {
+  position: relative;
+  padding: 7rem 1.5rem 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.db-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/hero_bg.png');
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.db-hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, #060d1a 85%);
+}
+
+.db-hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.db-hero-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.db-hero-sub {
+  color: var(--lp-muted);
+  font-size: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.db-hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+/* ── MAIN PANEL ──────────────────────────────────────────────── */
+.db-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+/* ── KPI ROW ─────────────────────────────────────────────────── */
+.db-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.5fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .db-kpi-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .db-kpi-row { grid-template-columns: 1fr; }
+}
+
+.db-kpi-card {
+  background: #0d1b2e;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: border-color 0.25s;
+}
+
+.db-kpi-card:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.db-kpi-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.db-kpi-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.db-kpi-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--lp-muted);
+  font-weight: 500;
+}
+
+.db-kpi-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.db-kpi-green {
+  color: var(--lp-primary) !important;
+}
+
+/* Advanced Track KPI Card */
+.db-kpi-advanced {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-color: rgba(6, 182, 212, 0.3) !important;
+}
+
+.db-kpi-advanced:hover {
+  border-color: rgba(6, 182, 212, 0.6) !important;
+}
+
+.db-kpi-adv-header {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+}
+
+.db-kpi-adv-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--lp-muted);
+  font-weight: 500;
+}
+
+.db-adv-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.175rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: auto;
+}
+
+.db-adv-pill.active    { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
+.db-adv-pill.expired   { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.4); }
+.db-adv-pill.available { background: rgba(59,130,246,0.15); color: #3b82f6; border: 1px solid rgba(59,130,246,0.4); }
+.db-adv-pill.locked    { background: rgba(100,116,139,0.15);color: #64748b; border: 1px solid rgba(100,116,139,0.4); }
+.db-adv-pill.completed { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
+
+.db-kpi-timer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #06b6d4;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.db-kpi-timer.timer-warning {
+  color: #f59e0b;
+}
+
+.db-kpi-adv-meta {
+  font-size: 0.72rem;
+  color: var(--lp-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── SECTION HEADER ──────────────────────────────────────────── */
+.db-section-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.db-section-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--lp-text);
+  margin: 0;
+}
+
+.db-section-msg {
+  font-size: 0.8rem;
+  color: var(--lp-muted);
+  margin: 0;
+}
+
+.db-section-msg.result-ok  { color: var(--lp-primary); }
+.db-section-msg.result-bad { color: #ef4444; }
+
+/* ── TRACK LABELS ────────────────────────────────────────────── */
+.db-track-label {
+  margin-bottom: 0.75rem;
+}
+
+.db-track-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.875rem;
+  border-radius: 999px;
+}
+
+.db-track-beginner {
+  background: rgba(59,130,246,0.1);
+  color: #3b82f6;
+  border: 1px solid rgba(59,130,246,0.3);
+}
+
+.db-track-advanced {
+  background: rgba(147,51,234,0.1);
+  color: #c084fc;
+  border: 1px solid rgba(147,51,234,0.3);
+}
+
+/* ── CHALLENGE GRID ──────────────────────────────────────────── */
+.db-challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1100px) { .db-challenge-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .db-challenge-grid { grid-template-columns: 1fr; } }
+
+/* ── CHALLENGE CARD ──────────────────────────────────────────── */
+.challenge-card {
+  background: #0d1b2e;
+  border: 1px solid rgba(16,185,129,0.15);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(16,185,129,0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.challenge-card:hover {
+  border-color: rgba(16,185,129,0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.challenge-card:hover::before { opacity: 1; }
+
+/* Solved state */
+.challenge-card-solved {
+  border-color: rgba(16,185,129,0.3) !important;
+}
+
+.challenge-card-solved::before {
+  opacity: 0.6;
+}
+
+/* Locked state */
+.challenge-card-locked {
+  opacity: 0.65;
+  cursor: default;
+}
+
+/* Disabled / error state  */
+.challenge-card-disabled {
+  border-color: rgba(239,68,68,0.2) !important;
+  opacity: 0.6;
+}
+
+/* Advanced active state */
+.challenge-card-adv-active {
+  border-color: rgba(147,51,234,0.4) !important;
+}
+
+.challenge-card-adv-active::before {
+  background: linear-gradient(90deg, transparent, rgba(192,132,252,0.4), transparent) !important;
+  opacity: 0.8 !important;
+}
+
+.challenge-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.challenge-card-head-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.challenge-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: var(--lp-primary);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.challenge-category {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--lp-muted);
+  font-weight: 600;
+  margin: 0;
+}
+
+.challenge-card h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--lp-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.card-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+}
+
+.card-chip {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chip-easy    { background: rgba(16,185,129,0.12); color: #10b981; }
+.chip-medium  { background: rgba(245,158,11,0.12); color: #f59e0b; }
+.chip-hard    { background: rgba(239,68,68,0.12);  color: #ef4444; }
+.chip-neutral { background: rgba(100,116,139,0.15); color: #94a3b8; }
+
+.card-meta {
+  font-size: 0.7rem;
+  color: var(--lp-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.card-actions {
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.card-actions .btn {
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  border-radius: 6px;
+}
+
+/* Status Pills */
+.status-pill {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.status-solved   { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
+.status-unsolved { background: rgba(100,116,139,0.1); color: #64748b; border: 1px solid rgba(100,116,139,0.3); }
+.status-locked   { background: rgba(100,116,139,0.1); color: #64748b; border: 1px solid rgba(100,116,139,0.3); }
+.status-active   { background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.4); }
+.status-expired  { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.4); }
+.status-available{ background: rgba(59,130,246,0.15); color: #3b82f6; border: 1px solid rgba(59,130,246,0.4); }
+
+/* Category colour bands */
+.category-networking { border-left: 3px solid #3b82f6; }
+.category-web        { border-left: 3px solid #f59e0b; }
+.category-linux      { border-left: 3px solid #10b981; }
+.category-ethical    { border-left: 3px solid #ef4444; }
+.category-generic    { border-left: 3px solid #64748b; }
+
+/* ── ADVANCED TRACK STATES ───────────────────────────────────── */
+.db-adv-inner {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(147,51,234,0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.db-adv-inner.adv-locked {
+  text-align: center;
+}
+
+.db-adv-inner.adv-available {
+  background: rgba(59,130,246,0.03);
+}
+
+.db-adv-inner.adv-expired {
+  background: rgba(239,68,68,0.03);
+  border-color: rgba(239,68,68,0.2);
+}
+
+/* "Start Advanced Track" warning box */
+.advanced-track-warning {
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+  font-size: 0.82rem;
+  color: #f59e0b;
+  margin-bottom: 1rem;
+}
+
+.advanced-start-btn {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  padding: 0.75rem 1.75rem !important;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(124,58,237,0.3);
+  transition: var(--lp-transition);
+}
+
+.advanced-start-btn:hover {
+  box-shadow: 0 0 30px rgba(124,58,237,0.5);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Advanced timer block inside track state */
+.advanced-track-timer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.timer-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--lp-muted);
+  font-weight: 600;
+}
+
+.timer-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #06b6d4;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.timer-display.timer-warning { color: #f59e0b; }
+
+.advanced-track-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--lp-muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 0.5rem;
+}
+
+.advanced-track-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.advanced-track-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--lp-text);
+  margin: 0 0 0.25rem;
+}
+
+.advanced-track-body {
+  margin-top: 0.5rem;
+}
+
+.advanced-challenge-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 1100px) { .advanced-challenge-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .advanced-challenge-list { grid-template-columns: 1fr; } }
+
+/* ── PROGRESS BAR ────────────────────────────────────────────── */
+.db-progress-bar-section {
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  background: #0d1b2e;
+  border: 1px solid rgba(16,185,129,0.15);
+  border-radius: 12px;
+}
+
+.db-progress-label {
+  font-size: 0.8rem;
+  color: var(--lp-muted);
+  margin-bottom: 0.625rem;
+  font-weight: 500;
+}
+
+.db-progress-label span {
+  color: var(--lp-primary);
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.db-progress-track {
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.db-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(16,185,129,0.4);
+}
+
+/* ── Loading state ───────────────────────────────────────────── */
+.db-loading-msg {
+  color: var(--lp-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* ── Spinner ─────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(16,185,129,0.3);
+  border-top-color: var(--lp-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Button overrides for dark theme ─────────────────────────── */
+body.db-page .btn {
+  font-family: 'Inter', sans-serif;
+}
+
+body.db-page .btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(16,185,129,0.25);
+  color: var(--lp-text);
+  transition: var(--lp-transition);
+}
+
+body.db-page .btn-secondary:hover {
+  border-color: var(--lp-primary);
+  color: var(--lp-primary);
+  background: var(--lp-primary-glow);
+  text-decoration: none;
+}
+
+.meta-label {
+  color: var(--lp-muted);
+  font-size: 0.8rem;
+}

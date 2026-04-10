@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Challenge 1 — Network Recon | ZeroTrace CTF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+</head>
+
+<body class="challenge-page">
+
+  <nav class="zt-nav">
+    <div class="zt-nav-inner">
+      <a class="zt-nav-brand" href="/">
+        <span class="zt-nav-mark">ZT</span>
+        <span class="zt-nav-title">ZeroTrace <span class="zt-nav-accent">CTF</span></span>
+      </a>
+      <div class="zt-nav-actions">
+        <a href="/" class="zt-nav-link">← Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="page-hero-badge" id="difficultyBadge">🌐 Beginner · Networking</span>
+    <h1 class="page-hero-title" id="challengeTitle">Where Did the Packet Go?</h1>
+    <p class="page-hero-subtitle" id="challengeDescription">Analyze the packet capture and recover the hidden flag.</p>
+  </div>
+
+  <main class="challenge-layout">
+
+    <!-- KPI ROW -->
+    <div class="challenge-meta-row">
+      <div class="kpi-card"><span class="kpi-card-label">Timer</span><span class="kpi-card-value text-mono" id="timer">00:00</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Score</span><span class="kpi-card-value green" id="score">0</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Status</span><span class="kpi-card-value" id="status">Unsolved</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Attempts</span><span class="kpi-card-value" id="attempts">0</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Hints Used</span><span class="kpi-card-value yellow" id="hintsUsed">0</span></div>
+    </div>
+
+    <!-- OBJECTIVE -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">🎯</span> Objective</h2>
+      <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:1rem;line-height:1.7;">Find the hidden flag inside the PCAP file. Open it in Wireshark and trace the suspicious packet.<br/>Flag format: <code style="color:#10b981;font-family:'JetBrains Mono',monospace;" id="flagFormat">CTF{...}</code></p>
+      <p id="toolRequirementNote" style="color:#fbbf24;font-size:0.82rem;margin:-0.35rem 0 1rem 0;line-height:1.6;">
+        Tool requirement: This challenge requires Wireshark installed locally to inspect the downloaded <code>.pcap</code> file.
+      </p>
+      <button id="downloadBtn" class="download-btn">⬇ Download PCAP</button>
+    </div>
+
+    <!-- SUBMIT FLAG -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">🚩</span> Submit Flag</h2>
+      <div class="flag-submit-row">
+        <input type="text" id="flag" class="flag-input" placeholder="CTF{...}" autocomplete="off" />
+        <button id="submitBtn" class="flag-submit-btn">SUBMIT</button>
+      </div>
+      <p id="result" class="result-text"></p>
+    </div>
+
+    <!-- HINTS -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">💡</span> Hints</h2>
+      <button id="hintBtn" class="hint-btn">Reveal Next Hint</button>
+      <ul id="hintList" class="hint-list"></ul>
+    </div>
+
+    <!-- POST-SOLVE -->
+    <div id="postSolvePanel" class="post-solve-panel hidden dark-panel">
+      <h2><span class="panel-icon">✅</span> Post-Solve Explanation</h2>
+      <p><strong>Why the packet was suspicious:</strong> <span id="expSuspicious"></span></p>
+      <p><strong>What Base64 means here:</strong> <span id="expBase64"></span></p>
+      <p><strong>How Wireshark filtering helped:</strong> <span id="expFilter"></span></p>
+      <p><strong>What you learned:</strong> <span id="expOutcome"></span></p>
+    </div>
+
+  </main>
+  <script src="../js/challenge1.js"></script>
+</body>
+</html>

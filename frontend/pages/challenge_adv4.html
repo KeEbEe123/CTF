@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signal vs Noise — Advanced Track | ZeroTrace CTF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <style>
+    .adv-shell { background:#060d1a; max-width:1100px; margin:0 auto; padding:0 1.5rem 4rem; }
+    .phantom-story { background:rgba(59,130,246,0.04); border:1px solid rgba(59,130,246,0.2); border-left:3px solid #3b82f6; border-radius:8px; padding:1rem 1.25rem; color:#93c5fd; font-style:italic; font-size:0.875rem; margin-bottom:1.5rem; line-height:1.7; }
+    .adv-panel { background:#0d1b2e; border:1px solid rgba(59,130,246,0.15); border-radius:12px; padding:1.5rem; margin-bottom:1.25rem; }
+    .adv-panel h2 { font-family:'Orbitron',monospace; font-size:0.95rem; color:#e2e8f0; margin:0 0 1rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(59,130,246,0.1); display:flex; align-items:center; gap:0.5rem; }
+    .adv-badge-row { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; margin-bottom:0.75rem; }
+    .adv-badge { display:inline-block; font-size:0.65rem; font-weight:700; padding:0.2rem 0.625rem; border-radius:999px; text-transform:uppercase; letter-spacing:.05em; }
+    .badge-track { background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.3); color:#3b82f6; }
+    .badge-expert { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); color:#ef4444; }
+    .badge-pts { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); color:#10b981; }
+    .no-hints-notice { display:inline-flex; align-items:center; gap:0.25rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2); color:#ef4444; font-size:0.7rem; font-weight:700; padding:0.25rem 0.625rem; border-radius:999px; }
+    .c-input { background:rgba(255,255,255,0.04); border:1px solid rgba(59,130,246,0.2); border-radius:6px; padding:0.45rem 0.75rem; color:#e2e8f0; font-family:'JetBrains Mono',monospace; font-size:0.8rem; outline:none; transition:all .2s; }
+    .c-input:focus { border-color:rgba(59,130,246,0.5); background:rgba(59,130,246,0.03); }
+    .c-input:disabled { opacity:0.45; cursor:not-allowed; }
+    .siem-control { display:flex; gap:0.6rem; flex-wrap:wrap; background:rgba(255,255,255,0.02); padding:0.75rem; border-radius:8px; align-items:center; margin-bottom:1rem; border:1px solid rgba(59,130,246,0.1); }
+    .siem-btn { background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.25); color:#3b82f6; font-weight:600; font-size:0.82rem; padding:0.5rem 1rem; border-radius:6px; cursor:pointer; font-family:'Inter',sans-serif; transition:all .2s; white-space:nowrap; }
+    .siem-btn:hover { background:rgba(59,130,246,0.2); }
+    .alert-box { background:#020a14; border:1px solid rgba(59,130,246,0.15); border-radius:8px; overflow:hidden; margin-bottom:1rem; height:280px; display:flex; flex-direction:column; }
+    .alert-box-header { background:rgba(59,130,246,0.06); padding:0.5rem 0.875rem; font-size:0.7rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#64748b; border-bottom:1px solid rgba(59,130,246,0.1); }
+    #alertsContainer { overflow-y:auto; flex:1; font-family:'JetBrains Mono',monospace; font-size:0.76rem; }
+    .log-box { background:#020a14; border:1px solid rgba(59,130,246,0.15); border-radius:8px; overflow:hidden; height:360px; display:flex; flex-direction:column; }
+    .log-box-header { background:rgba(59,130,246,0.06); padding:0.5rem 0.875rem; display:flex; justify-content:space-between; align-items:center; gap:0.6rem; flex-wrap:wrap; border-bottom:1px solid rgba(59,130,246,0.1); }
+    #logTabs { display:flex; gap:0.5rem; overflow-x:auto; }
+    #logsContainer { overflow-y:auto; flex:1; font-family:'JetBrains Mono',monospace; font-size:0.76rem; padding:0.875rem; white-space:pre; line-height:1.4; color:#93c5fd; }
+  </style>
+</head>
+
+<body class="challenge-page">
+
+  <nav class="zt-nav">
+    <div class="zt-nav-inner">
+      <a class="zt-nav-brand" href="/">
+        <span class="zt-nav-mark">ZT</span>
+        <span class="zt-nav-title">ZeroTrace <span class="zt-nav-accent">CTF</span></span>
+      </a>
+      <div class="zt-nav-actions">
+        <span id="userIdentity" class="zt-nav-user"></span>
+        <a href="/" class="zt-nav-link">← Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="adv-shell">
+
+    <div style="padding:2rem 0 1rem;">
+      <div class="adv-badge-row">
+        <span class="adv-badge badge-track">📡 Advanced Track</span>
+        <span class="adv-badge badge-expert">Expert</span>
+        <span class="adv-badge" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);color:#3b82f6;">SOC Analysis</span>
+        <span class="adv-badge badge-pts" id="pointsBadge">-- pts</span>
+        <span class="no-hints-notice">🚫 No hints</span>
+      </div>
+      <h1 style="font-family:'Orbitron',monospace;font-size:2rem;color:#fff;margin:0 0 0.5rem;" id="challengeTitle">Signal vs Noise</h1>
+      <p style="color:#94a3b8;font-size:0.9rem;line-height:1.7;margin:0;" id="challengeDescription">Loading...</p>
+    </div>
+
+    <blockquote class="phantom-story" id="challengeStory">Loading...</blockquote>
+
+    <!-- SIEM TERMINALS -->
+    <div class="adv-panel" id="interactionPanel">
+      <h2>🖥️ SIEM Data Terminals</h2>
+      <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1rem;line-height:1.6;">The central SOC feed has mapped 300+ events over the last 4 hours. Access the live alert feed or the raw correlation logs natively below.</p>
+
+      <div class="siem-control">
+        <button id="loadSiemBtn" class="siem-btn">Connect to SIEM Feed</button>
+        <select id="severityFilter" class="c-input" style="flex:0 1 140px;" disabled>
+          <option value="ALL">All Severities</option>
+          <option value="CRITICAL">CRITICAL</option>
+          <option value="HIGH">HIGH</option>
+          <option value="MEDIUM">MEDIUM</option>
+          <option value="LOW">LOW</option>
+        </select>
+        <input type="text" id="ipFilter" class="c-input" placeholder="Filter Origin IP..." style="flex:0 1 180px;" disabled autocomplete="off" spellcheck="false" />
+      </div>
+
+      <!-- Alerts pane -->
+      <div class="alert-box">
+        <div class="alert-box-header">Real-Time Alert Matrix</div>
+        <div id="alertsContainer"><div style="padding:1rem;color:#64748b;">// Awaiting SIEM connection...</div></div>
+      </div>
+
+      <!-- Log viewer pane -->
+      <div class="log-box">
+        <div class="log-box-header">
+          <div id="logTabs"></div>
+          <input type="text" id="logSearch" class="c-input" placeholder="Grep context filter..." style="width:220px;" disabled autocomplete="off" spellcheck="false" />
+        </div>
+        <div id="logsContainer"><span style="color:#455569;">// Awaiting datasets...</span></div>
+      </div>
+    </div>
+
+    <!-- FLAG SUBMIT -->
+    <div class="adv-panel">
+      <h2>🚩 Submit Attack Vector Intelligence</h2>
+      <form style="display:flex;gap:0.6rem;" id="flagForm" autocomplete="off">
+        <input type="text" id="flagInput" class="flag-input" placeholder="CTF{...}" spellcheck="false" style="flex:1;" disabled />
+        <button type="submit" class="flag-submit-btn" id="flagSubmitBtn" disabled>SUBMIT</button>
+      </form>
+      <div id="flagResult" class="result-text" style="margin-top:0.75rem;"></div>
+    </div>
+
+  </div>
+  <script src="../js/challenge_adv4.js"></script>
+</body>
+</html>

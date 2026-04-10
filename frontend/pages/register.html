@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | ZeroTrace CTF</title>
+  <meta name="description" content="Create your ZeroTrace CTF account and start your cybersecurity journey." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="icon" href="/images/favicon.png">
+  <link rel="stylesheet" href="/css/shared.css">
+</head>
+
+<body class="register-page">
+  <div class="auth-shell">
+
+    <!-- NAV -->
+    <nav class="zt-nav">
+      <div class="zt-nav-inner">
+        <a class="zt-nav-brand" href="/">
+          <span class="zt-nav-mark">ZT</span>
+          <span class="zt-nav-title">ZeroTrace <span class="zt-nav-accent">CTF</span></span>
+        </a>
+        <div class="zt-nav-actions">
+          <a class="zt-nav-link" href="/pages/login.html">← Login</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- AUTH MAIN -->
+    <div class="auth-main">
+      <div class="auth-card">
+        <span class="auth-badge">🚀 Student Onboarding</span>
+        <h1 class="auth-title">Create Account</h1>
+        <p id="registerMessage" class="error-message"></p>
+        <p class="auth-subtitle">Register to start challenges, track your score and progress.</p>
+
+        <form id="registerForm">
+          <div class="auth-field">
+            <label class="auth-label" for="name">Full Name</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <circle cx="12" cy="8.75" r="4.25"/>
+                <path d="M4 19.25a8 8 0 0 1 16 0" stroke-linecap="round"/>
+              </svg>
+              <input id="name" class="auth-input register-input" type="text" placeholder="Your full name" autocomplete="name" required />
+            </div>
+          </div>
+
+          <div class="auth-field">
+            <label class="auth-label" for="email">Email</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <rect x="2.25" y="6.75" width="19.5" height="10.5" rx="1.5"/>
+                <path d="m3 8 8.02 5.35a1.8 1.8 0 0 0 1.96 0L21 8" stroke-linecap="round"/>
+              </svg>
+              <input id="email" class="auth-input register-input" type="email" placeholder="you@example.com" autocomplete="email" required />
+            </div>
+          </div>
+
+          <div class="auth-field">
+            <label class="auth-label" for="password">Password</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <rect x="5" y="10.5" width="14" height="9.5" rx="1.75"/>
+                <path d="M8.5 10.5V8.25a3.5 3.5 0 1 1 7 0v2.25" stroke-linecap="round"/>
+              </svg>
+              <input id="password" class="auth-input register-input" type="password" placeholder="Create a strong password" autocomplete="new-password" required />
+            </div>
+          </div>
+
+          <div class="auth-field">
+            <label class="auth-label" for="confirmPassword">Confirm Password</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <rect x="5" y="10.5" width="14" height="9.5" rx="1.75"/>
+                <path d="M8.5 10.5V8.25a3.5 3.5 0 1 1 7 0v2.25" stroke-linecap="round"/>
+                <path d="m9.5 15 1.8 1.8 3.5-3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <input id="confirmPassword" class="auth-input register-input" type="password" placeholder="Confirm your password" autocomplete="new-password" required />
+            </div>
+            <div id="passwordMismatchError" class="error-message" style="display:none;margin-bottom:0.5rem;">Passwords do not match.</div>
+          </div>
+
+
+          <button class="auth-submit register-submit" type="submit">CREATE ACCOUNT</button>
+        </form>
+
+        <p class="auth-footer-link">Already have an account? <a href="/pages/login.html">Login</a></p>
+      </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div style="background:#0d1b2e;border-top:1px solid rgba(16,185,129,0.1);padding:1.25rem 1.5rem;">
+      <div style="max-width:700px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem;text-align:center;">
+        <div><div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:#10b981;">8</div><div style="font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:.06em;">Challenges</div></div>
+        <div><div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:#10b981;">Guided</div><div style="font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:.06em;">Hint System</div></div>
+        <div><div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:#10b981;">Real</div><div style="font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:.06em;">Lab Scenarios</div></div>
+        <div><div style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:#10b981;">Live</div><div style="font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:.06em;">Scoreboard</div></div>
+      </div>
+    </div>
+
+  </div>
+  <script src="../js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructor Analytics — ZeroTrace CTF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+</head>
+
+<body class="admin-page">
+
+  <!-- NAV -->
+  <nav class="zt-nav">
+    <div class="zt-nav-inner">
+      <a class="zt-nav-brand" href="/">
+        <span class="zt-nav-mark">ZT</span>
+        <span class="zt-nav-title">ZeroTrace <span class="zt-nav-accent">CTF</span></span>
+      </a>
+      <div class="zt-nav-actions">
+        <span id="adminUserInfo" class="zt-nav-user"></span>
+        <a href="/" class="zt-nav-link">← Dashboard</a>
+        <button id="adminLogoutBtn" class="tab-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero admin-hero">
+    <span class="page-hero-badge">👁 Instructor View</span>
+    <h1 class="page-hero-title">CTF Admin Analytics</h1>
+    <p class="page-hero-subtitle">Monitor student progress, hint usage, solve trends, and advanced track management across all 8 challenges.</p>
+  </div>
+
+  <main class="page-main admin-main">
+
+    <!-- KPI ROW -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-card-label">Total Solves</span>
+        <span class="kpi-card-value green" id="totalSolvesValue">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card-label">Active Students</span>
+        <span class="kpi-card-value blue" id="totalStudentsValue">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card-label">Hints Used</span>
+        <span class="kpi-card-value yellow" id="totalHintsValue">0</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card-label">Avg Solve Time</span>
+        <span class="kpi-card-value" id="avgSolveTimeValue">--:--</span>
+      </div>
+    </div>
+
+    <!-- OPERATIONAL METRICS -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">⚡</span> Operational Metrics
+        <button id="refreshBtn" class="tab-btn admin-panel-action" type="button">↻ Refresh</button>
+      </h2>
+      <div class="admin-inline-metrics">
+        <div class="admin-inline-metric">Avg attempts per solve: <strong id="avgAttemptsValue" class="text-green">0</strong></div>
+        <div class="admin-inline-metric">Terminal commands used: <strong id="totalCommandsValue" class="text-green">0</strong></div>
+        <div class="admin-inline-metric admin-inline-metric--muted" id="lastUpdatedValue">Last updated: --</div>
+      </div>
+    </div>
+
+    <!-- CHALLENGE STATS TABLE -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">📊</span> Challenge Statistics</h2>
+      <div class="dark-table-wrap admin-table-wrap admin-table-wrap--stats">
+        <table class="dark-table">
+          <thead>
+            <tr>
+              <th>Challenge</th>
+              <th>Solves</th>
+              <th>Avg Solve Time</th>
+              <th>Avg Attempts</th>
+              <th>Command Usage</th>
+            </tr>
+          </thead>
+          <tbody id="challengeStatsRows">
+            <tr><td colspan="5" style="text-align:center;color:#475569;padding:2rem;font-family:'JetBrains Mono',monospace;">Loading challenge stats...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SOLVES CHART -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">📈</span> Solves Per Challenge</h2>
+      <p style="margin: -0.25rem 0 1rem; color: #94a3b8; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; letter-spacing: 0.05em; opacity: 0.75;">ZeroTrace CTF powered by Roblocksec</p>
+      <div id="solvesChart" class="bar-chart"></div>
+    </div>
+
+
+    <!-- RECENT ACTIVITY -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">🔔</span> Recent Activity</h2>
+      <div class="dark-table-wrap admin-table-wrap admin-table-wrap--recent">
+        <table class="dark-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Challenge</th>
+              <th>Student / Session</th>
+              <th>Score</th>
+              <th>Hints</th>
+              <th>Attempts</th>
+            </tr>
+          </thead>
+          <tbody id="recentRows">
+            <tr><td colspan="6" style="text-align:center;color:#475569;padding:2rem;font-family:'JetBrains Mono',monospace;">Loading activity...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ADVANCED TRACK MANAGEMENT -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">⚔️</span> Advanced Track Management
+        <button id="refreshTrackBtn" class="tab-btn admin-panel-action" type="button">↻ Refresh</button>
+      </h2>
+      <p class="admin-panel-note">Only students who completed all beginner challenges appear here. You can reset their Advanced Track timer.</p>
+      <div class="dark-table-wrap admin-table-wrap admin-table-wrap--advanced">
+        <table class="dark-table">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Status</th>
+              <th>Eligible</th>
+              <th>Started</th>
+              <th>Expires / Expired</th>
+              <th>Attempts</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="advancedTrackRows">
+            <tr><td colspan="7" style="text-align:center;color:#475569;padding:2rem;font-family:'JetBrains Mono',monospace;">Loading student data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="trackStatusMessage" class="result-text" style="margin-top:0.75rem;"></p>
+    </div>
+
+    <div class="dark-panel admin-status-panel">
+      <p id="adminStatusMessage" class="result-text"></p>
+    </div>
+
+  </main>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

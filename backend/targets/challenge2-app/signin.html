@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Northstar Ops</title>
+    <link rel="stylesheet" href="/target/challenge2/css/site.css" />
+  </head>
+  <body data-page="signin">
+    <header class="site-header">
+      <div class="container header-row">
+        <a class="brand" href="/target/challenge2/">
+          <span class="brand-mark">NO</span>
+          <span>Northstar Ops</span>
+        </a>
+        <nav class="site-nav">
+          <a data-nav="home" href="/target/challenge2/">Home</a>
+          <a data-nav="features" href="/target/challenge2/features">Features</a>
+          <a data-nav="about" href="/target/challenge2/about">About</a>
+          <a data-nav="support" href="/target/challenge2/support">Support</a>
+          <a data-nav="signin" href="/target/challenge2/signin">Sign In</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <div class="container">
+        <section class="hero">
+          <h1>Workspace sign in</h1>
+          <p>Use your team credentials to access routing rules and audit settings.</p>
+        </section>
+
+        <section class="section">
+          <form id="signin-form" class="form-row">
+            <label for="email">Work Email</label>
+            <input id="email" type="email" placeholder="you@company.com" required />
+
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Enter password" required />
+
+            <button type="submit" class="btn btn-primary">Sign In</button>
+            <p id="signin-notice" class="small-note" aria-live="polite"></p>
+          </form>
+          <p class="small-note">
+            Need access? Ask your workspace administrator to send an invite from Team Settings.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <p>&copy; <span id="year"></span> Northstar Ops</p>
+        <div class="footer-links">
+          <a href="/target/challenge2/about">Company</a>
+          <a href="/target/challenge2/features">Platform</a>
+          <a href="/target/challenge2/support">Help Center</a>
+          <a href="/target/challenge2/signin">Workspace Login</a>
+        </div>
+      </div>
+    </footer>
+    <script src="/target/challenge2/js/app.js"></script>
+  </body>
+</html>

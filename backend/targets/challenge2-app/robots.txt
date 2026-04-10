@@ -1,0 +1,3 @@
+User-agent: *
+# Internal migration endpoints
+Disallow: /target/challenge2/internal/admin-backup

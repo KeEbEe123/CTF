@@ -1,0 +1,12 @@
+node_modules/
+*.log
+dist/
+.env
+.env.*
+database/users.json
+database/progress.json
+database/challenge*_completions.log
+database/_backup_*/
+database/*.tmp
+local_server.out.log
+local_server.err.log

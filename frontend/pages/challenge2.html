@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Challenge 2 — The Hidden Admin | ZeroTrace CTF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+</head>
+
+<body class="challenge-page">
+
+  <nav class="zt-nav">
+    <div class="zt-nav-inner">
+      <a class="zt-nav-brand" href="/">
+        <span class="zt-nav-mark">ZT</span>
+        <span class="zt-nav-title">ZeroTrace <span class="zt-nav-accent">CTF</span></span>
+      </a>
+      <div class="zt-nav-actions">
+        <a href="/" class="zt-nav-link">← Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="page-hero-badge" id="difficultyBadge">🕷 Beginner · Web Exploitation</span>
+    <h1 class="page-hero-title" id="challengeTitle">The Hidden Admin</h1>
+    <p class="page-hero-subtitle">A startup removed their admin panel — but did they really? Investigate the target web app and locate the hidden endpoint.</p>
+  </div>
+
+  <main class="challenge-layout">
+
+    <!-- KPI ROW -->
+    <div class="challenge-meta-row">
+      <div class="kpi-card"><span class="kpi-card-label">Category</span><span class="kpi-card-value text-mono" style="font-size:1rem;" id="categoryValue">Web VAPT</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Max Points</span><span class="kpi-card-value" id="pointsValue">100</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Score Earned</span><span class="kpi-card-value green" id="scoreValue">0</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Timer</span><span class="kpi-card-value text-mono" id="timerValue">00:00</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Attempts</span><span class="kpi-card-value" id="attemptsValue">0</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Hints Used</span><span class="kpi-card-value yellow" id="hintsUsedValue">0</span></div>
+      <div class="kpi-card"><span class="kpi-card-label">Status</span><span class="kpi-card-value" id="statusValue">Unsolved</span></div>
+    </div>
+
+    <!-- OBJECTIVE + LAUNCH -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">🎯</span> Objective</h2>
+      <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:1rem;line-height:1.7;">Find the hidden page containing the flag and submit it.<br/>Flag format: <code style="color:#10b981;font-family:'JetBrains Mono',monospace;" id="flagFormatValue">CTF{...}</code></p>
+      <a class="download-btn" href="/target/challenge2/" target="_blank" rel="noopener noreferrer">🚀 Launch Target Application</a>
+    </div>
+
+    <!-- HINTS -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">💡</span> Hints</h2>
+      <button id="hintBtn" class="hint-btn" type="button">Reveal Next Hint</button>
+      <ul id="hintList" class="hint-list"></ul>
+    </div>
+
+    <!-- SUBMIT FLAG -->
+    <div class="dark-panel">
+      <h2><span class="panel-icon">🚩</span> Submit Flag</h2>
+      <div class="flag-submit-row">
+        <input type="text" id="flag" class="flag-input" placeholder="CTF{...}" autocomplete="off" />
+        <button id="submitBtn" class="flag-submit-btn" type="button">SUBMIT</button>
+      </div>
+      <p id="result" class="result-text"></p>
+    </div>
+
+    <!-- POST-SOLVE -->
+    <div id="postSolvePanel" class="post-solve-panel dark-panel hidden">
+      <h2><span class="panel-icon">✅</span> Post-Solve Explanation</h2>
+      <p id="postSolveText" style="color:#94a3b8;font-size:0.875rem;line-height:1.7;"></p>
+    </div>
+
+  </main>
+  <script src="../js/challenge2.js"></script>
+</body>
+</html>

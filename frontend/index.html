@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZeroTrace CTF — Dashboard</title>
+  <meta name="description" content="ZeroTrace CTF student dashboard. Track your progress, solve beginner and advanced challenges, and climb the scoreboard." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./css/landing.css" />
+  <link rel="stylesheet" href="./css/dashboard.css" />
+</head>
+
+<body class="landing-page db-page">
+
+  <!-- ── NAV ─────────────────────────────────────────────────── -->
+  <nav class="lp-nav db-nav scrolled" id="lpNav">
+    <div class="lp-nav-inner">
+      <a class="lp-brand" href="/">
+        <span class="lp-brand-mark">ZT</span>
+        <span class="lp-brand-name">ZeroTrace <span class="lp-brand-ctf">CTF</span></span>
+      </a>
+      <div class="db-nav-user-bar">
+        <span id="authGreeting" class="db-user-email"></span>
+        <a id="scoreboardLink" class="btn db-nav-btn hidden" href="/pages/scoreboard.html">Scoreboard</a>
+        <a id="loginLink"    class="btn lp-register-btn" href="/pages/login.html">Login</a>
+        <a id="registerLink" class="btn lp-login-btn"    href="/pages/register.html">Register</a>
+        <a id="adminLink"    class="btn db-nav-btn hidden" href="/pages/admin.html">Admin</a>
+        <button id="logoutBtn" class="btn db-nav-btn hidden" type="button">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── DASHBOARD HERO ──────────────────────────────────────── -->
+  <section class="db-hero">
+    <div class="db-hero-bg"></div>
+    <div class="db-hero-content">
+      <h1 class="db-hero-title">ZeroTrace CTF <span class="lp-hero-accent">Dashboard</span></h1>
+      <p style="margin-top: -0.5rem; color: #94a3b8; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; letter-spacing: 0.05em; opacity: 0.8;">powered by Roblocksec</p>
+      <p class="db-hero-sub">Hack your way to the top!</p>
+
+      <div class="db-hero-actions">
+        <a class="btn lp-cta-primary" href="#challengeSection">Start Training</a>
+        <button id="refreshBtn" class="btn lp-cta-secondary" type="button">↻ Refresh Status</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAIN DASHBOARD PANEL ────────────────────────────────── -->
+  <main class="db-main">
+
+    <!-- KPI STATS ROW -->
+    <div class="db-kpi-row">
+      <div class="db-kpi-card">
+        <div class="db-kpi-icon">🛡</div>
+        <div class="db-kpi-body">
+          <span class="db-kpi-label">Challenges Solved</span>
+          <span id="summarySolved" class="db-kpi-value">0 / 8</span>
+        </div>
+      </div>
+      <div class="db-kpi-card">
+        <div class="db-kpi-icon">📊</div>
+        <div class="db-kpi-body">
+          <span class="db-kpi-label">Score Earned</span>
+          <span id="summaryScore" class="db-kpi-value db-kpi-green">0</span>
+        </div>
+      </div>
+      <div class="db-kpi-card">
+        <div class="db-kpi-icon">🎯</div>
+        <div class="db-kpi-body">
+          <span class="db-kpi-label">Max Potential</span>
+          <span id="summaryMaxScore" class="db-kpi-value">0</span>
+        </div>
+      </div>
+      <!-- Advanced Track Timer KPI -->
+      <div class="db-kpi-card db-kpi-advanced" id="advancedKpiCard" style="display:none">
+        <div class="db-kpi-adv-header">
+          <span class="db-kpi-adv-label">Advanced Track</span>
+          <span id="advancedKpiStatus" class="db-adv-pill"></span>
+        </div>
+        <span id="advancedCountdownDisplay" class="db-kpi-timer">--:--:--</span>
+        <div class="db-kpi-adv-meta" id="advancedKpiMeta"></div>
+      </div>
+    </div>
+
+    <p id="scorePolicyNote" style="margin:0.9rem 0 0.25rem;color:#94a3b8;font-size:0.82rem;line-height:1.6;">
+      Scoring policy: points are dynamic by solve order (earlier solves earn more), and duplicate submissions award 0 points.
+    </p>
+
+    <!-- CHALLENGE GRID -->
+    <section class="db-challenges" id="challengeSection">
+      <div class="db-section-head">
+        <h2 class="db-section-title">Challenges</h2>
+        <p id="dashboardMessage" class="db-section-msg"></p>
+      </div>
+
+      <!-- Beginner Track -->
+      <div class="db-track-label">
+        <span class="db-track-badge db-track-beginner">Beginner Track</span>
+      </div>
+      <div id="challengeRows" class="db-challenge-grid"></div>
+
+      <!-- Advanced Track -->
+      <div class="db-track-label" style="margin-top: 1.5rem;">
+        <span class="db-track-badge db-track-advanced">Advanced Track</span>
+      </div>
+      <div id="advancedTrackSection" class="db-challenge-grid db-adv-grid" aria-label="Advanced Track">
+        <div id="advancedTrackInner" class="db-adv-inner">
+          <p class="db-loading-msg">Loading Advanced Track…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRESS BAR -->
+    <div class="db-progress-bar-section">
+      <div class="db-progress-label">
+        Progress: <span id="progressText">0 / 8</span> Challenges Completed
+      </div>
+      <div class="db-progress-track">
+        <div class="db-progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="./js/dashboard.js"></script>
+  <script src="./js/dashboard_ui.js"></script>
+</body>
+
+</html>

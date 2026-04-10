@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghost Logs — Advanced Track | ZeroTrace CTF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/shared.css" />
+  <style>
+    .adv-shell { background:#060d1a; max-width:960px; margin:0 auto; padding:0 1.5rem 4rem; }
+    .phantom-story { background:rgba(245,158,11,0.04); border:1px solid rgba(245,158,11,0.2); border-left:3px solid #f59e0b; border-radius:8px; padding:1rem 1.25rem; color:#fcd34d; font-style:italic; font-size:0.875rem; margin-bottom:1.5rem; line-height:1.7; }
+    .adv-panel { background:#0d1b2e; border:1px solid rgba(245,158,11,0.15); border-radius:12px; padding:1.5rem; margin-bottom:1.25rem; }
+    .adv-panel h2 { font-family:'Orbitron',monospace; font-size:0.95rem; color:#e2e8f0; margin:0 0 1rem; padding-bottom:0.625rem; border-bottom:1px solid rgba(245,158,11,0.1); display:flex; align-items:center; gap:0.5rem; }
+    .adv-badge-row { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; margin-bottom:0.75rem; }
+    .adv-badge { display:inline-block; font-size:0.65rem; font-weight:700; padding:0.2rem 0.625rem; border-radius:999px; text-transform:uppercase; letter-spacing:.05em; }
+    .badge-track { background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); color:#f59e0b; }
+    .badge-expert { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); color:#ef4444; }
+    .badge-pts { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); color:#10b981; }
+    .badge-type { background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.2); color:#f59e0b; }
+    .no-hints-notice { display:inline-flex; align-items:center; gap:0.25rem; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2); color:#ef4444; font-size:0.7rem; font-weight:700; padding:0.25rem 0.625rem; border-radius:999px; }
+    .c-terminal { background:#020a14; border:1px solid rgba(245,158,11,0.15); border-radius:8px; padding:0.875rem; font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:#fcd34d; min-height:200px; max-height:400px; overflow-y:auto; line-height:1.5; }
+    .c-input { background:rgba(255,255,255,0.04); border:1px solid rgba(245,158,11,0.2); border-radius:6px; padding:0.5rem 0.75rem; color:#e2e8f0; font-family:'JetBrains Mono',monospace; font-size:0.82rem; outline:none; transition:all .2s; }
+    .c-input:focus { border-color:rgba(245,158,11,0.5); background:rgba(245,158,11,0.03); }
+    .log-tabs { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.75rem; }
+    .log-tab-btn { background:transparent; border:1px solid rgba(245,158,11,0.2); color:#94a3b8; font-size:0.75rem; font-weight:600; padding:0.35rem 0.75rem; border-radius:6px; cursor:pointer; font-family:'JetBrains Mono',monospace; transition:all .2s; }
+    .log-tab-btn.active, .log-tab-btn:hover { background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.4); color:#f59e0b; }
+    .evidence-actions { display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-bottom:1rem; }
+    .forensic-btn { background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); color:#f59e0b; font-weight:600; font-size:0.85rem; padding:0.625rem 1.25rem; border-radius:8px; cursor:pointer; font-family:'Inter',sans-serif; transition:all .2s; }
+    .forensic-btn:hover { background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.5); }
+    #viewerContainer { display:none; margin-top:1.25rem; border-top:1px solid rgba(245,158,11,0.1); padding-top:1.25rem; }
+    #logSearch { max-width:280px; }
+  </style>
+</head>
+
+<body class="challenge-page">
+
+  <nav class="zt-nav">
+    <div class="zt-nav-inner">
+      <a class="zt-nav-brand" href="/">
+        <span class="zt-nav-mark">ZT</span>
+        <span class="zt-nav-title">ZeroTrace <span class="zt-nav-accent">CTF</span></span>
+      </a>
+      <div class="zt-nav-actions">
+        <span id="userIdentity" class="zt-nav-user"></span>
+        <a href="/" class="zt-nav-link">← Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="adv-shell">
+
+    <div style="padding:2rem 0 1rem;">
+      <div class="adv-badge-row">
+        <span class="adv-badge badge-track">👻 Advanced Track</span>
+        <span class="adv-badge badge-expert">Expert</span>
+        <span class="adv-badge badge-type">Forensics</span>
+        <span class="adv-badge badge-pts" id="pointsBadge">-- pts</span>
+        <span class="no-hints-notice">🚫 No hints</span>
+      </div>
+      <h1 style="font-family:'Orbitron',monospace;font-size:2rem;color:#fff;margin:0 0 0.5rem;" id="challengeTitle">Ghost Logs</h1>
+      <p style="color:#94a3b8;font-size:0.9rem;line-height:1.7;margin:0;" id="challengeDescription">Loading...</p>
+    </div>
+
+    <blockquote class="phantom-story" id="challengeStory">Loading...</blockquote>
+
+    <!-- EVIDENCE RETRIEVAL -->
+    <div class="adv-panel" id="interactionPanel">
+      <h2>🔍 Evidence Retrieval</h2>
+      <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1rem;line-height:1.6;">The SOC extracted a structured packet of 4 disjointed system logs. Download the JSON payload or parse it natively in the Forensic Viewer below. Time is short.</p>
+      <div class="evidence-actions">
+        <button id="downloadBtn" class="forensic-btn">⬇ Download <code>ghost_logs.json</code></button>
+        <button id="loadViewerBtn" class="forensic-btn" style="background:rgba(6,182,212,0.06);border-color:rgba(6,182,212,0.2);color:#06b6d4;">🔬 Load Forensic Viewer</button>
+      </div>
+
+      <div id="viewerContainer">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.75rem;">
+          <div id="logTabs" class="log-tabs"></div>
+          <input type="text" id="logSearch" class="c-input" placeholder="Regex / Keyword Filter..." autocomplete="off" spellcheck="false" />
+        </div>
+        <div id="logContent" class="c-terminal" style="height:400px;line-height:1.4;">
+          // Awaiting log selection...
+        </div>
+      </div>
+    </div>
+
+    <!-- FLAG SUBMIT -->
+    <div class="adv-panel">
+      <h2>🚩 Submit Extracted Payload</h2>
+      <form style="display:flex;gap:0.6rem;" id="flagForm" autocomplete="off">
+        <input type="text" id="flagInput" class="flag-input" placeholder="CTF{...}" spellcheck="false" style="flex:1;" />
+        <button type="submit" class="flag-submit-btn" id="flagSubmitBtn">SUBMIT</button>
+      </form>
+      <div id="flagResult" class="result-text" style="margin-top:0.75rem;"></div>
+    </div>
+
+  </div>
+  <script src="../js/challenge_adv3.js"></script>
+</body>
+</html>

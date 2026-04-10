@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legacy Admin Backup Console - Northstar Ops</title>
+    <link rel="stylesheet" href="/target/challenge2/css/site.css" />
+  </head>
+  <body data-page="internal">
+    <header class="site-header">
+      <div class="container header-row">
+        <a class="brand" href="/target/challenge2/">
+          <span class="brand-mark">NO</span>
+          <span>Northstar Ops</span>
+        </a>
+        <nav class="site-nav">
+          <a href="/target/challenge2/">Back to Public Site</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <div class="container">
+        <section class="section">
+          <div class="banner-warning">
+            Internal Notice: This legacy backup console is scheduled for removal after migration
+            validation is completed.
+          </div>
+          <h1>Legacy Admin Backup Console</h1>
+          <p class="small-note">
+            Environment: <strong>staging backup</strong> | Last snapshot: 2026-03-12 19:45 UTC
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>Review summary</h2>
+          <div class="grid">
+            <article class="card">
+              <h3>Queue Rules Synced</h3>
+              <p>21 / 21 policy rules verified against production baseline.</p>
+            </article>
+            <article class="card">
+              <h3>Audit Exports Ready</h3>
+              <p>Daily integrity checks completed for the last 7 snapshot cycles.</p>
+            </article>
+            <article class="card">
+              <h3>Console Status</h3>
+              <p>Read-only access mode enabled for final archival review.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Internal verification record</h2>
+          <div class="kv">
+            <div class="kv-row">
+              <div class="kv-key">Backup Review Ticket</div>
+              <div>OPS-4821</div>
+            </div>
+            <div class="kv-row">
+              <div class="kv-key">Audit Verification Token</div>
+              <div class="mono">CTF{admin_panel_exposed}</div>
+            </div>
+            <div class="kv-row">
+              <div class="kv-key">Owner</div>
+              <div>Platform Reliability Team</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <p>Internal legacy review surface - Northstar Ops</p>
+        <div class="footer-links">
+          <a href="/target/challenge2/support">Contact Operations</a>
+        </div>
+      </div>
+    </footer>
+    <script src="/target/challenge2/js/app.js"></script>
+  </body>
+</html>

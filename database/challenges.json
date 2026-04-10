@@ -1,0 +1,174 @@
+{
+  "challenges": [
+    {
+      "id": 1,
+      "track": "beginner",
+      "title": "Where Did the Packet Go?",
+      "category": "Networking",
+      "difficulty": "Beginner",
+      "points": 100,
+      "flagHash": "97af8198c823c758253ba2419380420b8c5d273482ac716dd7353487bdba7a49",
+      "flagFormat": "CTF{...}",
+      "pcapFile": "network_capture.pcap",
+      "description": "A suspicious outbound communication was detected on the company network. Analyze the packet capture and recover the hidden flag.",
+      "hints": [
+        "Look at HTTP packets.",
+        "Check GET parameters in suspicious requests.",
+        "The message is Base64 encoded."
+      ],
+      "postSolve": {
+        "suspiciousPacket": "The request was suspicious because sensitive-looking data was sent in a URL query parameter during outbound HTTP traffic.",
+        "base64Concept": "Base64 is an encoding format, not encryption. It often hides readable data in plain sight, so decoding suspicious values is a key analyst skill.",
+        "wiresharkFilter": "Using the `http` display filter narrowed the capture quickly and made it easy to inspect the GET request and its query string.",
+        "learningOutcome": "You practiced packet triage, protocol filtering, payload extraction, and decoding techniques used in real network investigations."
+      }
+    },
+    {
+      "id": 2,
+      "track": "beginner",
+      "title": "The Hidden Admin",
+      "category": "Web Application VAPT",
+      "difficulty": "Beginner",
+      "points": 100,
+      "flagHash": "ffc9aaf8110997417a702e4585b6d98257770e56846e0cdeec609cb4921fd2b3",
+      "estimatedMinutes": 60,
+      "hints": [
+        "Check publicly accessible files.",
+        "Look at robots.txt.",
+        "The hidden page relates to admin backups."
+      ],
+      "explanation": "The hidden admin panel was discoverable through robots.txt. Robots.txt is often misused and can leak sensitive paths. Attackers frequently check robots.txt during reconnaissance."
+    },
+    {
+      "id": 3,
+      "track": "beginner",
+      "title": "The Lost Flag",
+      "category": "Linux",
+      "difficulty": "Beginner",
+      "points": 100,
+      "flagHash": "b9e262eee4807c2ee36def39998ecd8c8805baedb2e412a1630512e2c0dcd87f",
+      "flagFormat": "CTF{...}",
+      "estimatedMinutes": 60,
+      "description": "A junior analyst misplaced a verification token inside a Linux training environment. Investigate the simulated filesystem and recover it.",
+      "objective": "Use basic Linux commands to find and read the file containing the flag.",
+      "hints": [
+        "Start by exploring the student home directory.",
+        "Hidden files and backup folders may matter.",
+        "Search for a file named .data or search for CTF{ recursively."
+      ],
+      "postSolve": {
+        "summary": "This challenge introduced basic Linux enumeration. The flag was hidden inside a concealed backup-style path under the student home directory. Commands like ls, cd, find, cat, and grep are fundamental when investigating Linux systems.",
+        "outcomes": [
+          "Navigating Linux directories",
+          "Reading file contents",
+          "Finding hidden paths",
+          "Using find and grep effectively",
+          "Running a basic filesystem investigation workflow"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "track": "beginner",
+      "title": "The Forgotten Server",
+      "category": "Ethical Hacking / Kali",
+      "difficulty": "Beginner-Intermediate",
+      "points": 100,
+      "flagHash": "d714f8bbb279fac8c741fdbebe537a5e939a29a44e1685922ffd718d638347d5",
+      "flagFormat": "CTF{...}",
+      "estimatedMinutes": 60,
+      "description": "During a routine network audit, your team discovered a forgotten internal server. Your task is to enumerate the host, identify exposed services, and investigate any accessible resources.",
+      "objective": "Recover the flag from the target system by enumerating services and interacting with exposed FTP resources.",
+      "hints": [
+        "Start with scanning the target host.",
+        "Identify which services are open.",
+        "One service allows anonymous access."
+      ],
+      "postSolve": {
+        "summary": "This challenge introduced basic network enumeration. The server exposed an FTP service that allowed anonymous login. After connecting and listing files, the flag was found in a readable file.",
+        "outcomes": [
+          "Using Nmap for service discovery",
+          "Interpreting open ports and service versions",
+          "Interacting with FTP services safely",
+          "Retrieving files from exposed services"
+        ]
+      }
+    },
+    {
+      "id": "adv-1",
+      "track": "advanced",
+      "title": "Phantom Execution",
+      "category": "Offensive",
+      "difficulty": "Expert",
+      "points": 500,
+      "flagHash": "7e0403e58162b9836a1cf0e2afdb83ab4be0fce6e003bb2728c053b9ec354ce4",
+      "flagFormat": "CTF{...}",
+      "hintMode": "none",
+      "hints": [],
+      "estimatedMinutes": 240,
+      "description": "A modern internal platform has deployed a self-service employee portal. It allows staff to manage their profiles, export reports, and request elevated access for short periods. The platform was rushed into production. Something about how the session state interacts with the role verification flow is… off. Identify the logic flaw and exploit it to obtain privileged execution.",
+      "story": "You have been given read-only credentials to an internal employee portal. The platform administrators insist the privilege escalation model is airtight. Your job is to prove them wrong. There are no hints. There is no guided path. There is only the API surface — and the ghost of a design flaw.",
+      "objective": "Obtain and submit the flag that only a privileged session can retrieve.",
+      "postSolve": null
+    },
+    {
+      "id": "adv-2",
+      "track": "advanced",
+      "title": "Protocol Collapse",
+      "category": "Offensive",
+      "difficulty": "Expert",
+      "points": 500,
+      "flagHash": "2a9fc70b53d34d3578fd671273254cdb087f7c0038a2108845381fdc0d3b7022",
+      "flagFormat": "CTF{...}",
+      "hintMode": "none",
+      "hints": [],
+      "estimatedMinutes": 240,
+      "description": "An experimental, undocumented custom over-the-wire protocol exists on the internal network. The communication stream is stateful, session-based, and relies on strict cryptographic nonce-syncing. Analyze the protocol structure, identify the state desynchronization vulnerability, and extract the administrative token payload.",
+      "story": "Intelligence indicates a new proprietary management protocol is active on the wire. There are no docs, no hints, and no safety rails. You have a terminal connected to the raw socket interface. Map the states. Find the flaw.",
+      "objective": "Negotiate a session and exploit the custom protocol state machine to extract the final flag.",
+      "postSolve": null
+    },
+    {
+      "id": "adv-3",
+      "track": "advanced",
+      "title": "Ghost Logs",
+      "description": "A sophisticated adversary has wiped their tracks, corrupted timelines, and flooded the servers with noise. Reconstruct their attack path across 4 disjointed system logs.",
+      "story": "The client discovered an unauthorized exfiltration vector an hour ago. The automated IR tools crashed entirely because the logs look physically impossible. Dive into the raw text streams, ignore the noisy script kiddies, synchronize the time servers, and decode the exact flag payload they successfully stole.",
+      "category": "Forensics",
+      "difficulty": "Expert",
+      "points": 500,
+      "flagHash": "ad93c668f24d5c50b579a9fe21d02ddb85dc89c7375c41838f990b352296b9ed",
+      "flagFormat": "CTF{...}",
+      "hintMode": "none",
+      "hints": [],
+      "prerequisites": [
+        "challenge1",
+        "challenge2",
+        "challenge3",
+        "challenge4"
+      ],
+      "postSolve": null
+    },
+    {
+      "id": "adv-4",
+      "track": "advanced",
+      "title": "Signal vs Noise",
+      "description": "Welcome to the SOC. You've been dropped into an active incident response dashboard populated by hundreds of alerts. Most are loud, irrelevant decoy attacks. Find the quiet execution chain.",
+      "story": "The SIEM is flashing red. A suspected script kiddie is hammering the perimeter with aggressive but harmless SQL injection and authentication brute forces. But intelligence suggests a more sophisticated threat actor slipped through the chaos. Analyze the raw logs and rule alerts, filter out the noise, and identify the true data exfiltration path.",
+      "category": "SOC Analysis",
+      "difficulty": "Expert",
+      "points": 500,
+      "flagHash": "28cf26615b1419741e9df646def82edfe09e4d580b33076135ca2dca8433ecbc",
+      "flagFormat": "CTF{...}",
+      "hintMode": "none",
+      "hints": [],
+      "prerequisites": [
+        "challenge1",
+        "challenge2",
+        "challenge3",
+        "challenge4"
+      ],
+      "postSolve": null
+    }
+  ]
+}
